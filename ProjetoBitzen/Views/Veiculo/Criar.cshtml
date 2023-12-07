@@ -1,0 +1,56 @@
+﻿@model ProjetoBitzen.Models.Veiculo
+
+<h2 class="display-4">Cadastrar Veículos</h2>
+
+<form asp-action="Criar">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id">
+    <div class="form-group">
+        <label>Nome *</label>
+        <input type="text" class="form-control" id="nomeMotorista" asp-for="Nome" placeholder="Nome">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Tipo Combústivel *</label><br />
+        <select id="Status" asp-for="TipoCombustivel">
+            <option value="">Selecione</option>
+            <option value="ÁLCOOL">ÁLCOOL</option>
+            <option value="GASOLINA">GASOLINA</option>
+            <option value="FLEX">FLEX</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Fabricante *</label>
+        <input type="text" class="form-control" id="" asp-for="Fabricante" maxlength="50" placeholder="">
+        <span asp-validation-for="Fabricante" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Ano de fabricação *</label><br />
+        <input type="text" class="form-control" id="ANO" asp-for="AnoFabricacao" maxlength="4" placeholder="">
+        <span asp-validation-for="AnoFabricacao" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Capacidade máxima do tanque *</label>
+        <input type="text" class="form-control" id="DECIMAL" asp-for="CapacidadeTanque" placeholder="">
+        <span asp-validation-for="CapacidadeTanque" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Observações</label>
+        <textarea class="form-control" asp-for="Observacao" rows="3"></textarea>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button type="button" class="btn btn-secondary" asp-action="Home">Voltar</button>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

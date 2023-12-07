@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ProjetoBitzen.Models.Motorista>
+
+@{
+    ViewData["Title"] = "Lista Motoristas";
+}
+
+<h2 class="display-4">Motoristas</h2>
+
+<div class="" >
+    <a class="btn btn-primary" role="button" asp-controller="Motorista" asp-action="Criar" >Adicionar</a>
+</div>
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Número CNH</th>
+            <th scope="col">Categoria CNH</th>
+            <th scope="col">Data de nascimento.</th>
+            <th scope="col">Status</th>
+            <th scope="col">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CNH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataNascimento)
+                </td>
+                <td>
+                     @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-success" asp-action="Criar" asp-route-id="@item.Id">Editar</a> |
+                    <a class="btn btn-sm btn-danger" onclick="ApagarDados('@item.Id')">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    var ApagarDados = function (id) {
+
+        if (confirm('Tem certeza que deseja apagar este Item?')) {
+            $.ajax({
+                type: "DELETE",
+                url: "Motorista/ConfirmaApagar/" + id,
+                success: function (result) {
+                    alert("Motorista Apagado com Sucesso!");
+                    location.reload();
+                }
+            });
+        }
+
+    };
+</script>
+

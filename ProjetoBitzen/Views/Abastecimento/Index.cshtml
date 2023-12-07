@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<ProjetoBitzen.Models.Abastecimento>
+
+
+@{
+    ViewData["Title"] = "Lista Motoristas";
+}
+
+<h2 class="display-4">Registrar os abastecimentos</h2>
+
+<div class="">
+    <a class="btn btn-primary" role="button" asp-controller="Abastecimento" asp-action="Criar">Adicionar</a>
+</div>
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Veiculo</th>
+            <th scope="col">Motorista Responsavel</th>
+            <th scope="col">Data</th>
+            <th scope="col">Tipo de Combustivel</th>
+            <th scope="col">Quantidade abastecida</th>
+            <th scope="col">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeVeiculo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeMotorista)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoCombustivel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantidadeAbastecida) Litros.
+                </td>
+                <td>
+                    <!--a class="btn btn-sm btn-success" asp-action="Criar" asp-route-id="item.Id">Editar</a--> |
+                    <a class="btn btn-sm btn-danger" onclick="ApagarDados('@item.Id')">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    var ApagarDados = function (id) {
+
+        if (confirm('Tem certeza que deseja apagar este Item?')) {
+            $.ajax({
+                type: "DELETE",
+                url: "Abastecimento/ConfirmaApagar/" + id,
+                success: function (result) {
+                    alert("Abastecimento Apagado com Sucesso!");
+                    location.reload();
+                }
+            });
+        }
+
+    };
+</script>
+

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ProjetoBitzen.Models.Veiculo>
+
+
+@{
+    ViewData["Title"] = "Lista Motoristas";
+}
+
+<h2 class="display-4">Veículo</h2>
+
+<div class="">
+    <a class="btn btn-primary" role="button" asp-controller="Veiculo" asp-action="Criar">Adicionar</a>
+</div>
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Tipo de Combustivel</th>
+            <th scope="col">Fabricante</th>
+            <th scope="col">Ano de fabricação</th>
+            <th scope="col">Capacidade máxima do tanque</th>
+            <th scope="col">Observação</th>
+            <th scope="col">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoCombustivel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fabricante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnoFabricacao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CapacidadeTanque) Litros.
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Observacao)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-success" asp-action="Criar" asp-route-id="@item.Id">Editar</a> |
+                    <a class="btn btn-sm btn-danger" onclick="ApagarDados('@item.Id')">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    var ApagarDados = function (id) {
+
+        if (confirm('Tem certeza que deseja apagar este Item?')) {
+            $.ajax({
+                type: "DELETE",
+                url: "Veiculo/ConfirmaApagar/" + id,
+                success: function (result) {
+                    alert("Motorista Apagado com Sucesso!");
+                    location.reload();
+                }
+            });
+        }
+
+    };
+</script>
+
